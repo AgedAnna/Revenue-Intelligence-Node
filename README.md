@@ -1,19 +1,3 @@
----
-
-# 5. Dicas Finais
-
-- **Seja objetivo**: descreva o que é essencial para alguém entender, instalar e usar.  
-- **Use títulos e subtítulos** (##, ###) para deixar o documento organizado.  
-- **Verifique links**: se você usar links para imagens ou documentação externa, teste antes de publicar.  
-- **Mantenha atualizado**: se alterar algo importante no código (como endpoints ou variáveis de ambiente), lembre-se de atualizar o README.  
-- **Use o GitHub Wiki** (opcional): se seu projeto for grande, você pode criar páginas separadas no Wiki do repositório.
-
----
-
-## Exemplo Simples de README.md
-
-Abaixo um **exemplo** condensado de um README, mostrando como ficaria na prática:
-
 ````md
 # Revenue Intelligence
 
@@ -43,7 +27,90 @@ Este projeto integra com o **HubSpot** para obter dados de contatos e gera **lea
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/usuario/revenue-intelligence.git
+   git clone https://github.com/AgedAnna/Revenue-Intelligence-Node
    cd revenue-intelligence
    ```
+## Instale as dependências:
+   ```bash
+   npm install
+   Crie o arquivo .env (veja a seção “Variáveis de Ambiente”).
+   ```
+
+## Inicie a aplicação:
+   ```bash
+   npm start
+   ```
+   A aplicação rodará, por padrão, em http://localhost:3000.
+   Acesse GET /insights para ver a lista de contatos com seus respectivos scores.
+
+   Exemplo de resposta:
+   {
+     "insights": [
+       {
+         "id": "92402504337",
+         "email": "annabeatryz12345@gmail.com",
+         "name": "Anna Beatryz",
+         "score": 80
+       },
+       {
+         "id": "92416777021",
+         "email": "emailmaria@hubspot.com",
+         "name": "Maria Johnson",
+         "score": 50
+       }
+     ]
+   }
+
+## Estrutura de Pastas
+   revenue-intelligence/
+    ├─ src/
+    │   ├─ controllers/
+    │   │   └─ insightsController.js
+    │   ├─ services/
+    │   │   ├─ hubspotService.js
+    │   │   └─ aiService.js
+    │   ├─ app.js
+    │   └─ server.js
+    ├─ .gitignore
+    ├─ package.json
+    └─ README.md
+
+   controllers/: lida com as rotas e a lógica para cada endpoint.
+   services/: contém a lógica de integração com HubSpot (hubspotService) e OpenAI (aiService).
+
+## Variáveis de Ambiente
+   Crie um arquivo .env na raiz do projeto (que não deve ser versionado) com os valores adequados:
+   
+   OPENAI_API_KEY=your_openai_key_here
+   HUBSPOT_API_KEY=your_hubspot_token_here
+   PORT=3000
+   
+   OPENAI_API_KEY: Chave gerada no OpenAI Dashboard.
+   HUBSPOT_API_KEY: Token de aplicativo privado (Private App) no HubSpot.
+   PORT (opcional): Porta onde o servidor deve rodar.
+
+## Endpoints
+   GET /insights
+   Descrição: Retorna uma lista de contatos do HubSpot com scores calculados pela IA.
+   Resposta:
+   {
+     "insights": [
+       { "id": "...", "email": "...", "name": "...", "score": 50 }
+     ]
+   }
+
+## Erros:
+   401 / 403: caso as credenciais da HubSpot estejam inválidas.
+   429: se a OpenAI estiver sem cota ou se o limite foi atingido.
+   500: erros internos ao processar.
+
+## Contribuição
+   Fork este repositório.
+   Crie uma branch (git checkout -b minha-feature).
+   Faça suas alterações e commit (git commit -m 'Minha feature').
+   Faça push para sua branch (git push origin minha-feature).
+   Abra um Pull Request no GitHub.
+
+**FIM**
+
 ````
